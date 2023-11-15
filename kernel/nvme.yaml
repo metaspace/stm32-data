@@ -1,0 +1,71 @@
+block/NVME:
+  description: NVMe controller
+  items:
+  - name: CAP
+    description: Controller Capabilities
+    byte_offset: 0
+    fieldset: CAP
+    access: Read
+  - name: CSTS
+    description: Controller Status
+    byte_offset: 0x1c
+    access: Read
+    fieldset: CSTS
+fieldset/CAP:
+  description: Controller Capabilities
+  bit_size: 64
+  fields:
+  - name: MQES
+    description: Maximum Queue Entries Supported
+    bit_offset: 0
+    bit_size: 16
+  - name: CQR
+    description: Continuous Queues Required
+    bit_offset: 16
+    bit_size: 1
+  - name: DSTRD
+    description: Doorbell stride
+    bit_offset: 32
+    bit_size: 4
+fieldset/CSTS:
+  description: Controller Status
+  bit_size: 64
+  fields:
+  - name: RDY
+    description: Ready
+    bit_offset: 0
+    bit_size: 1
+  - name: CFS
+    description: Controller Fatal Status
+    bit_offset: 1
+    bit_size: 1
+  - name: SHST
+    description: Controller Shutdownw Status
+    bit_offset: 2
+    bit_size: 2
+    enum: SHST
+  - name: NSSRO
+    description: NVMe subsystem reset occured
+    bit_offset: 4
+    bit_size: 1
+  - name: PP
+    description: Processing Paused
+    bit_offset: 5
+    bit_size: 1
+  - name: ST
+    description: Shutdown Type
+    bit_offset: 6
+    bit_size: 1
+enum/SHST:
+  bit_size: 2
+  variants:
+  - name: NormalOperation
+    description: Normal Operation (no shutdown requested)
+    value: 0
+  - name: ShutdownOccurring
+    description: Shutdown in progress
+    value: 1
+  - name: ShutdownComplete
+    description: Shutdown is complete
+    value: 2
+
